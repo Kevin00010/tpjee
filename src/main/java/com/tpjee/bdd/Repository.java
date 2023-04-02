@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tpjee.models.Auteur;
+import com.tpjee.models.Document;
 import com.tpjee.models.MaisonEdition;
+import com.tpjee.models.TypeDocument;
 import com.tpjee.models.Utilisateur;
 
-public class Noms {
+public class Repository {
 	private Connection connexion;
 
 	
@@ -29,14 +31,16 @@ public class Noms {
 			statement = connexion.createStatement();
 
 			// Exécution de la requête
-			resultat = statement.executeQuery("SELECT nom, prenom FROM noms;");
+			resultat = statement.executeQuery("SELECT id, nom, prenom FROM noms;");
 
 			// Récupération des données
 			while (resultat.next()) {
+				Integer id = resultat.getInt("id");
 				String nom = resultat.getString("nom");
 				String prenom = resultat.getString("prenom");
 
 				Utilisateur utilisateur = new Utilisateur();
+				utilisateur.setId(id);
 				utilisateur.setNom(nom);
 				utilisateur.setPrenom(prenom);
 
@@ -89,7 +93,7 @@ public class Noms {
 			statement = connexion.createStatement();
 
 			// Exécution de la requête
-			resultat = statement.executeQuery("SELECT id, nom, prenom, nationalite FROM Auteur;");
+			resultat = statement.executeQuery("SELECT id, nom, prenom, nationalite FROM auteurs;");
 
 			// Récupération des données
 			while (resultat.next()) {
@@ -129,7 +133,7 @@ public class Noms {
 
 		try {
 			PreparedStatement preparedStatement = connexion
-					.prepareStatement("INSERT INTO Auteur(nom, prenom, nationalite) VALUES(?, ?, ?);");
+					.prepareStatement("INSERT INTO auteurs(nom, prenom, nationalite) VALUES(?, ?, ?);");
 			preparedStatement.setString(1, auteur.getNom());
 			preparedStatement.setString(2, auteur.getPrenom());
 			preparedStatement.setString(3, auteur.getNationalite());
@@ -198,7 +202,137 @@ public class Noms {
 			}
 		}
 	
-	
+		//TypeDocument
+		
+		public List<TypeDocument> recupererTypeDocument() {
+			List<TypeDocument> typeDocuments = new ArrayList<TypeDocument>();
+			Statement statement = null;
+			ResultSet resultat = null;
+
+			loadDatabase();
+
+			try {
+				statement = connexion.createStatement();
+
+				// Exécution de la requête
+				resultat = statement.executeQuery("SELECT id, designation FROM type_documents;");
+
+				// Récupération des données
+				while (resultat.next()) {
+					Integer id = resultat.getInt("id");
+					String designation = resultat.getString("designation");
+					
+					TypeDocument typeDocument = new TypeDocument();
+					typeDocument.setId(id);
+					typeDocument.setDesignation(designation);
+					
+
+					typeDocuments.add(typeDocument);
+				}
+			} catch (SQLException e) {
+			} finally {
+				// Fermeture de la connexion
+				try {
+					if (resultat != null)
+						resultat.close();
+					if (statement != null)
+						statement.close();
+					if (connexion != null)
+						connexion.close();
+				} catch (SQLException ignore) {
+				}
+			}
+
+			return typeDocuments;
+		}
+
+		
+		public void ajouterTypeDocument(TypeDocument typeDocument) {
+			loadDatabase();
+
+			try {
+				PreparedStatement preparedStatement = connexion
+						.prepareStatement("INSERT INTO (designation) VALUES(?);");
+				preparedStatement.setString(1, typeDocument.getDesignation());
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public List<Document> recupererDocument() {
+			List<Document> documents = new ArrayList<Document>();
+			Statement statement = null;
+			ResultSet resultat = null;
+
+			loadDatabase();
+
+			try {
+				statement = connexion.createStatement();
+
+				// Exécution de la requête
+				resultat = statement.executeQuery("SELECT ISBN, libelle, description, domaine, maisonEdition, auteur, type FROM document;");
+
+				// Récupération des données
+				while (resultat.next()) {
+					String id = resultat.getString("ISBN");
+					String libelle = resultat.getString("libelle");
+					String description = resultat.getString("description");
+					String domaine = resultat.getString("domaine");
+					Integer maisonEdition = resultat.getInt("maisonEdition");
+					Integer auteur = resultat.getInt("auteur");
+					Integer type = resultat.getInt("type");
+					
+					Document document = new Document();
+					
+					document.setISBN(id);
+					document.setLibelle(libelle);
+					document.setDescription(description);
+					document.setDomaine(domaine);
+					document.setMaisonEdition(maisonEdition);
+					document.setAuteur(auteur);
+					document.setType(type);
+					
+					documents.add(document);
+				}
+			} catch (SQLException e) {
+			} finally {
+				// Fermeture de la connexion
+				try {
+					if (resultat != null)
+						resultat.close();
+					if (statement != null)
+						statement.close();
+					if (connexion != null)
+						connexion.close();
+				} catch (SQLException ignore) {
+				}
+			}
+
+			return documents;
+		}
+
+		
+		public void ajouterDocument(Document document) {
+			loadDatabase();
+
+			try {
+				PreparedStatement preparedStatement = connexion
+						.prepareStatement("INSERT INTO (ISBN, libelle, description, domaine, maisonEdition, auteur, type) VALUES(?, ?, ?, ?, ?, ?, ?);");
+				preparedStatement.setString(1, document.getISBN());
+				preparedStatement.setString(2, document.getLibelle());
+				preparedStatement.setString(3, document.getDescription());
+				preparedStatement.setString(4, document.getDomaine());
+				preparedStatement.setInt(5, document.getMaisonEdition());
+				preparedStatement.setInt(6, document.getAuteur());
+				preparedStatement.setInt(7, document.getType());
+				
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	
 	private void loadDatabase() {
 		// Chargement du driver

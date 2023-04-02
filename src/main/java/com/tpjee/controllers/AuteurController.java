@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tpjee.bdd.Repository;
-import com.tpjee.models.Utilisateur;
+import com.tpjee.models.Auteur;
 
 /**
- * Servlet implementation class HomeController
+ * Servlet implementation class AuteurController
  */
-@WebServlet("/HomeController")
-public class HomeController extends HttpServlet {
+@WebServlet("/AuteurController")
+public class AuteurController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public AuteurController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +30,21 @@ public class HomeController extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Repository tableNoms = new Repository();
-        request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
         request.setAttribute("auteurs", tableNoms.recupererAuteurs());
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/auteur.jsp").forward(request, response);
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setNom(request.getParameter("nom"));
-        utilisateur.setPrenom(request.getParameter("prenom"));
-        
+        Auteur auteur = new Auteur();
+        auteur.setNom(request.getParameter("nom"));
+        auteur.setPrenom(request.getParameter("prenom"));
+        auteur.setNationalite(request.getParameter("nationalite"));
         Repository tableNoms = new Repository();
-        tableNoms.ajouterUtilisateur(utilisateur);
+        tableNoms.ajouterAuteur(auteur);
         
-        request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
+        request.setAttribute("auteurs", tableNoms.recupererAuteurs());
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/auteur.jsp").forward(request, response);
     }
+
 }
