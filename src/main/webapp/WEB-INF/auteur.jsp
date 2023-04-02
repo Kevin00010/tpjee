@@ -83,6 +83,55 @@
 			</tr>
 		</tfoot>
 	</table>
+	<div class="col-auto">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+										data-bs-target="#exampleModal">
+										Ajouter un Livre
+									</button>
+
+								</div>
+	
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">Ajoute un livre</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="#" class="form-group" action="" 
+									method="POST">
+									<div class="row">
+										<div class="col-md-6 py-3">
+											<label for="">Nom du livre</label>
+											<input type="text" class="form-control" name="*{title}">
+										</div>
+										<div class="col-md-6 py-3">
+											<label for="">Genre</label>
+											<input type="text" class="form-control" name="*{genre}">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6 py-3">
+											<label for="">Nom de l'auteur</label>
+											<input type="text" class="form-control" name="">
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Fermer</button>
+										<button type="submit" class="btn btn-primary">Enregistrer</button>
+									</div>
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 	<script src="/tpjee/WEB-INF/css/auteur.js"></script>
 	

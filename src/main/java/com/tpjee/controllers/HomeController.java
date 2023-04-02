@@ -29,9 +29,9 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Repository tableNoms = new Repository();
-        request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
-        request.setAttribute("auteurs", tableNoms.recupererAuteurs());
+        Repository repository = new Repository();
+        request.setAttribute("utilisateurs", repository.recupererUtilisateurs());
+        request.setAttribute("auteurs", repository.recupererAuteurs());
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
     }
@@ -41,10 +41,10 @@ public class HomeController extends HttpServlet {
         utilisateur.setNom(request.getParameter("nom"));
         utilisateur.setPrenom(request.getParameter("prenom"));
         
-        Repository tableNoms = new Repository();
-        tableNoms.ajouterUtilisateur(utilisateur);
+        Repository repository = new Repository();
+        repository.ajouterUtilisateur(utilisateur);
         
-        request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
+        request.setAttribute("utilisateurs", repository.recupererUtilisateurs());
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
     }
