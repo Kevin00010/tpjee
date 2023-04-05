@@ -12,9 +12,10 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
 	rel="stylesheet" />
-
+<style><%@include file="/resources/css/test.css"%></style>
 </head>
 <body>
+<div class="form-connect">
 	<form method="post" action="bonjour">
 		<p>
 			<label for="nom">Nom : </label> <input type="text" name="nom"
@@ -27,6 +28,7 @@
 
 		<input type="submit" />
 	</form>
+	</div>
 
 	<!-- 	<ul> -->
 	<%-- 		<c:forEach var="utilisateur" items="${ utilisateurs }"> --%>

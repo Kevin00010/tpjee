@@ -129,6 +129,7 @@ public class Repository {
 
 	
 	public void ajouterAuteur(Auteur auteur) {
+		
 		loadDatabase();
 
 		try {
@@ -143,7 +144,50 @@ public class Repository {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public Auteur recupererUnAuteur (Integer id) {
+		Auteur auteur = new Auteur();
+		Statement statement = null;
+		ResultSet resultat = null;
+		
+		loadDatabase();
+		
+		try {
+			statement = connexion.createStatement();
+
+			// Exécution de la requête
+			resultat = statement.executeQuery("SELECT id, nom, prenom, nationalite FROM auteurs WHERE id="+id);
+
+			// Récupération des données
+			if(resultat.next()) {
+				Integer auteurID = resultat.getInt("id");
+				String nom = resultat.getString("nom");
+				String prenom = resultat.getString("prenom");
+				String nationalite = resultat.getString("nationalite");
+
+				
+				auteur.setId(auteurID);
+				auteur.setNom(nom);
+				auteur.setPrenom(prenom);
+				auteur.setNationalite(nationalite);
+				
+			}
+		} catch (SQLException e) {
+		} finally {
+			// Fermeture de la connexion
+			try {
+				if (resultat != null)
+					resultat.close();
+				if (statement != null)
+					statement.close();
+				if (connexion != null)
+					connexion.close();
+				} catch (SQLException ignore) {
+			}
+		}
+
+		return auteur;
+	}
 	//Maison Edition
 	
 		public List<MaisonEdition> recupererMaisonEdition() {

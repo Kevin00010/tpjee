@@ -33,18 +33,20 @@ public class HomeController extends HttpServlet {
         request.setAttribute("utilisateurs", repository.recupererUtilisateurs());
         request.setAttribute("auteurs", repository.recupererAuteurs());
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/document.jsp").forward(request, response);
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    	//Utilisateur
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(request.getParameter("nom"));
         utilisateur.setPrenom(request.getParameter("prenom"));
-        
         Repository repository = new Repository();
         repository.ajouterUtilisateur(utilisateur);
-        
+      
         request.setAttribute("utilisateurs", repository.recupererUtilisateurs());
+        
+        //Auteur
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
     }
