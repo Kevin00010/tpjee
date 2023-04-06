@@ -32,7 +32,7 @@ public class AuteurController extends HttpServlet {
         Repository tableNoms = new Repository();
        
         request.setAttribute("auteurs", tableNoms.recupererAuteurs());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/document.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/auteur.jsp").forward(request, response);
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -45,7 +45,7 @@ public class AuteurController extends HttpServlet {
         
         request.setAttribute("auteurs", tableNoms.recupererAuteurs());
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/document.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/auteur.jsp").forward(request, response);
     }
 
 }

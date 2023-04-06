@@ -12,7 +12,7 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
 	rel="stylesheet" />
-<style><%@include file="/resources/css/test.css"%></style>
+<style><%@include file="/resources/assets/css/portal.css"%></style>
 </head>
 <body>
 <div class="form-connect">

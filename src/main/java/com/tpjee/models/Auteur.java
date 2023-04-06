@@ -7,6 +7,29 @@ public class Auteur {
 	private String prenom;
 	private String nationalite;
 	
+
+//constructors
+	
+	public Auteur() {
+		super();
+	}
+		
+	public Auteur(String nom, String prenom, String nationalite) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+	}
+
+	public Auteur(Integer id, String nom, String prenom, String nationalite) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+	}
+
+//Getters and Setters
 	public Integer getId() {
 		return id;
 	}
