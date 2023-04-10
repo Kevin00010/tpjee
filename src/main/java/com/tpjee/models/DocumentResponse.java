@@ -1,22 +1,21 @@
 package com.tpjee.models;
 
-public class Document {
+public class DocumentResponse {
 	
 	private String ISBN;
 	private String libelle;
 	private String description;
-	private Integer domaine;
-	private Integer maisonEdition;
-	private Integer auteur;
-	private Integer type;
-	private String cover;
-	
-	public Document() {
+	private Domain domaine;
+	private MaisonEdition maisonEdition;
+	private Auteur auteur;
+	private TypeDocument type;
+	private String cover;	
+	public DocumentResponse() {
 		super();
 	}
 
-	public Document(String iSBN, String libelle, String description, Integer domaine, Integer maisonEdition,
-			Integer auteur, Integer type, String cover) {
+	public DocumentResponse(String iSBN, String libelle, String description, Domain domaine, MaisonEdition maisonEdition,
+			Auteur auteur, TypeDocument type, String cover) {
 		super();
 		ISBN = iSBN;
 		this.libelle = libelle;
@@ -52,35 +51,35 @@ public class Document {
 		this.description = description;
 	}
 
-	public Integer getDomaine() {
+	public Domain getDomaine() {
 		return domaine;
 	}
 
-	public void setDomaine(Integer domaine) {
+	public void setDomaine(Domain domaine) {
 		this.domaine = domaine;
 	}
 
-	public Integer getMaisonEdition() {
+	public MaisonEdition getMaisonEdition() {
 		return maisonEdition;
 	}
 
-	public void setMaisonEdition(Integer maisonEdition) {
+	public void setMaisonEdition(MaisonEdition maisonEdition) {
 		this.maisonEdition = maisonEdition;
 	}
 
-	public Integer getAuteur() {
+	public Auteur getAuteur() {
 		return auteur;
 	}
 
-	public void setAuteur(Integer auteur) {
+	public void setAuteur(Auteur auteur) {
 		this.auteur = auteur;
 	}
 
-	public Integer getType() {
+	public TypeDocument getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(TypeDocument type) {
 		this.type = type;
 	}
 
@@ -95,7 +94,5 @@ public class Document {
 	
 	
 	
-		
-	
-	
 }
+

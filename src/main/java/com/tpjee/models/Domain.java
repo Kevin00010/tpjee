@@ -1,20 +1,19 @@
 package com.tpjee.models;
 
-public class TypeDocument {
+public class Domain {
 	private Integer id;
 	private String designation;
 	
-	
-	public TypeDocument() {
+	public Domain() {
 		super();
 	}
 
-	public TypeDocument(String designation) {
+	public Domain(String designation) {
 		super();
 		this.designation = designation;
 	}
 
-	public TypeDocument(Integer id, String designation) {
+	public Domain(Integer id, String designation) {
 		super();
 		this.id = id;
 		this.designation = designation;
@@ -35,7 +34,7 @@ public class TypeDocument {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-
 	
-
+	
+	
 }

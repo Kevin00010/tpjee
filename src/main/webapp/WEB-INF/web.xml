@@ -5,19 +5,89 @@
   	<servlet>
   		<servlet-name>HomeController</servlet-name>
   		<servlet-class>com.tpjee.controllers.HomeController</servlet-class>
-  	</servlet><servlet>
+  	</servlet>
+  	<servlet>
   		<servlet-name>AuteurController</servlet-name>
   		<servlet-class>com.tpjee.controllers.AuteurController</servlet-class>
   	</servlet>
+  	<servlet>
+  		<servlet-name>TypeDocumentController</servlet-name>
+  		<servlet-class>com.tpjee.controllers.TypeDocumentController</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<servlet-name>DomainController</servlet-name>
+  		<servlet-class>com.tpjee.controllers.DomainController</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<servlet-name>MaisonEditionController</servlet-name>
+  		<servlet-class>com.tpjee.controllers.MaisonEditionController</servlet-class>
+  	</servlet>
+  	
+  	<servlet>
+  		<servlet-name>DocumentController</servlet-name>
+  		<servlet-class>com.tpjee.controllers.DocumentController</servlet-class>
+  		<multipart-config>
+            <location>/Users/armandpountie/eclipse-workspace/tpjee/src/main/webapp/resources/assets/images/coverstmp/</location> <!-- A adapter chez vous -->
+            <max-file-size>10485760</max-file-size> <!-- 10 Mo -->
+            <max-request-size>52428800</max-request-size> <!-- 5 x 10 Mo -->
+            <file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
+        </multipart-config>
+  	</servlet>
+  	
   	<servlet-mapping>
   		<servlet-name>HomeController</servlet-name>
-  		<url-pattern>/</url-pattern>
+  		<url-pattern>/admin</url-pattern>
   	</servlet-mapping>
   
   	<servlet-mapping>
   		<servlet-name>AuteurController</servlet-name>
-  		<url-pattern>/auteur</url-pattern>
+  		<url-pattern>/list_auteur</url-pattern>
+  		<url-pattern>/edit_auteur</url-pattern>
+  		<url-pattern>/update_auteur</url-pattern>
+  		<url-pattern>/delete_auteur</url-pattern>
+  		<url-pattern>/insert_auteur</url-pattern>
+  		
   	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>TypeDocumentController</servlet-name>
+  		<url-pattern>/list_type_document</url-pattern>
+  		<url-pattern>/edit_type_document</url-pattern>
+  		<url-pattern>/update_type_document</url-pattern>
+  		<url-pattern>/delete_type_document</url-pattern>
+  		<url-pattern>/insert_type_document</url-pattern>
+  		
+  	</servlet-mapping>
+  	
+  	<servlet-mapping>
+  		<servlet-name>DomainController</servlet-name>
+  		<url-pattern>/list_domain</url-pattern>
+  		<url-pattern>/edit_domain</url-pattern>
+  		<url-pattern>/update_domain</url-pattern>
+  		<url-pattern>/delete_domain</url-pattern>
+  		<url-pattern>/insert_domain</url-pattern>
+  		
+  	</servlet-mapping>
+  	
+  	<servlet-mapping>
+  		<servlet-name>MaisonEditionController</servlet-name>
+  		<url-pattern>/list_maisonEdition</url-pattern>
+  		<url-pattern>/edit_maisonEdition</url-pattern>
+  		<url-pattern>/update_maisonEdition</url-pattern>
+  		<url-pattern>/delete_maisonEdition</url-pattern>
+  		<url-pattern>/insert_maisonEdition</url-pattern>
+  		
+  	</servlet-mapping>
+  	
+  	<servlet-mapping>
+  		<servlet-name>DocumentController</servlet-name>
+  		<url-pattern>/list_document</url-pattern>
+  		<url-pattern>/edit_document</url-pattern>
+  		<url-pattern>/update_document</url-pattern>
+  		<url-pattern>/delete_document</url-pattern>
+  		<url-pattern>/insert_document</url-pattern>
+  		
+  	</servlet-mapping>
+  
   
  	<jsp-config>
  		<jsp-property-group>
