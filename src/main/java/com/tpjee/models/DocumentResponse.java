@@ -90,6 +90,14 @@ public class DocumentResponse {
 	public void setCover(String cover) {
 		this.cover = cover;
 	}
+
+	@Override
+	public String toString() {
+		return "DocumentResponse [ISBN=" + ISBN + ", libelle=" + libelle + ", description=" + description + ", domaine="
+				+ domaine + ", maisonEdition=" + maisonEdition + ", auteur=" + auteur + ", type=" + type + ", cover="
+				+ cover + "]";
+	}
+	
 	
 	
 	

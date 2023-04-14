@@ -5,17 +5,15 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.tpjee.bdd.AuteurRepo;
@@ -60,6 +58,10 @@ public class DocumentController extends HttpServlet {
 	System.out.println(getServletContext().getContextPath());
 
    		try {
+HttpSession session = request.getSession();
+   		    
+   		    
+   		    if(session.getAttribute("currentSessionUser") != null) {
    		 switch (action) {
          
          case "/insert_document":
@@ -78,6 +80,9 @@ public class DocumentController extends HttpServlet {
              listDocuments(request, response);
              break;
    		 }
+   		    }else {
+   		    	response.sendRedirect("login_form");
+   		    }
    		} catch (SQLException ex) {
    			throw new ServletException(ex);
    		}
@@ -112,6 +117,8 @@ public class DocumentController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/document.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {

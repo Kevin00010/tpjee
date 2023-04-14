@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tpjee.bdd.DomainRepo;
 import com.tpjee.models.Domain;
@@ -20,57 +21,65 @@ import com.tpjee.models.Domain;
 @WebServlet("/DomainController")
 public class DomainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DomainController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    DomainRepo domainRepo = new DomainRepo();
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   	String action  = request.getServletPath();
-
-   	System.out.println(action);
-   		try {
-   		 switch (action) {
-         
-         case "/insert_domain":
-             insertDomain(request, response);
-             break;
-         case "/delete_domain":
-             deleteDomain(request, response);
-             break;
-         case "/edit_domain":
-             showEditForm(request, response);
-             break;
-         case "/update_domain":
-             updateDomain(request, response);
-             break;
-         default:
-             listDomains(request, response);
-             break;
-   		 }
-   		} catch (SQLException ex) {
-   			throw new ServletException(ex);
-   		}
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DomainController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+
+	DomainRepo domainRepo = new DomainRepo();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getServletPath();
+
+		System.out.println(action);
+		try {
+			
+			HttpSession session = request.getSession();
+
+			if (session.getAttribute("currentSessionUser") != null) {
+				switch (action) {
+
+				case "/insert_domain":
+					insertDomain(request, response);
+					break;
+				case "/delete_domain":
+					deleteDomain(request, response);
+					break;
+				case "/edit_domain":
+					showEditForm(request, response);
+					break;
+				case "/update_domain":
+					updateDomain(request, response);
+					break;
+				default:
+					listDomains(request, response);
+					break;
+				}
+			} else {
+				response.sendRedirect("login_form");
+			}
+		} catch (SQLException ex) {
+			throw new ServletException(ex);
 		}
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 	private void listDomains(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Domain> domains = domainRepo.listDomains();
 		request.setAttribute("domains", domains);
-		if(request.getServletPath() == "/list_domain") 
+		if (request.getServletPath() == "/list_domain")
 			request.setAttribute("activeo", "active");
 		else {
-    		 request.setAttribute("activeo", "");
+			request.setAttribute("activeo", "");
 
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admin/domain.jsp");
@@ -99,7 +108,7 @@ public class DomainController extends HttpServlet {
 
 	private void updateDomain(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String designation = request.getParameter("designation");
 		Domain domain = new Domain(id, designation);
@@ -109,11 +118,11 @@ public class DomainController extends HttpServlet {
 
 	private void deleteDomain(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		domainRepo.deleteDomain(id);
 		List<Domain> domains = domainRepo.listDomains();
 		request.setAttribute("domains", domains);
 		response.sendRedirect("list_domain");
-	}   
+	}
 }

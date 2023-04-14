@@ -34,6 +34,11 @@ public class Domain {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+
+	@Override
+	public String toString() {
+		return "Domain [id=" + id + ", designation=" + designation + "]";
+	}
 	
 	
 	

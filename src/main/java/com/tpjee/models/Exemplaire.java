@@ -23,6 +23,11 @@ public class Exemplaire {
 	public void setDocumentID(String documentID) {
 		this.documentID = documentID;
 	}
+	@Override
+	public String toString() {
+		return "Exemplaire [id=" + id + ", codeExp=" + codeExp + ", documentID=" + documentID + "]";
+	}
+	
 	
 	
 }

@@ -31,7 +31,21 @@ public class DocumentRepo {
 	private static final String SELECT_ALL_DOCUMENTS = "SELECT documents.ISBN, documents.libelle, documents.description, documents.cover, auteurs.id as auteurId, auteurs.nationalite as nationaliteAuteur, auteurs.nom as nomAuteur, auteurs.prenom as prenomAuteur, maison_editions.id as maisonEditionId, maison_editions.nomMaison as nomMaison, type_documents.id as typeId, type_documents.designation as designationType, domaines.id as domaineId, domaines.designation as nomDomaine FROM documents, auteurs, domaines, type_documents, maison_editions where documents.auteur = auteurs.id AND documents.domaine=domaines.id AND documents.maisonEdition=maison_editions.id AND documents.type=type_documents.id;";
 	
 	private static final String DELETE_DOCUMENT_SQL = "delete from documents where ISBN = ?;";
-	private static final String UPDATE_DOCUMENT_SQL = "update documents set libelle = ?,description= ?, auteur =?, domaine = ?, maisonEdition= ?, type =?, cover= ?  where id = ?;";
+	private static final String UPDATE_DOCUMENT_SQL = "update documents set libelle = ?,description= ?, auteur =?, domaine = ?, maisonEdition= ?, type =?, cover= ?  where ISBN = ?;";
+	
+	private static final String DOCUMENTS_BY_DOMAINE = "SELECT documents.ISBN, documents.libelle, "
+			+ "documents.description, documents.cover, "
+			+ "auteurs.id as auteurId, auteurs.nationalite as nationaliteAuteur, "
+			+ "auteurs.nom as nomAuteur, auteurs.prenom as prenomAuteur, "
+			+ "maison_editions.id as maisonEditionId, maison_editions.nomMaison as nomMaison,"
+			+ " type_documents.id as typeId, type_documents.designation as designationType,"
+			+ " domaines.id as domaineId, domaines.designation as nomDomaine FROM documents,"
+			+ " auteurs, domaines, type_documents, maison_editions"
+			+ " where documents.auteur = auteurs.id "
+			+ "AND documents.domaine=domaines.id"
+			+ " AND documents.maisonEdition=maison_editions.id "
+			+ "AND documents.type=type_documents.id "
+			+ "AND documents.domaine = ?;";
 	
 	public List<DocumentResponse> listDocuments() {
 		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
@@ -93,6 +107,59 @@ public class DocumentRepo {
 
 		return documents;
 	}
+	
+	
+	public List<DocumentResponse> DocumentsByDomaine(int id) {
+		List<DocumentResponse> document = new ArrayList<DocumentResponse>();
+		loadDatabase();
+
+		// Step 1: Establishing a Connection
+		try {
+			// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connexion.prepareStatement(DOCUMENTS_BY_DOMAINE);
+			preparedStatement.setInt(1, id);
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet resultat = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (resultat.next()) {
+				String ISBN = resultat.getString("ISBN");
+				String libelle = resultat.getString("libelle");
+				String description = resultat.getString("description");
+				
+				Auteur auteur = new Auteur(resultat.getInt("auteurId"), 
+										resultat.getString("nomAuteur"), 
+										resultat.getString("prenomAuteur"),
+										resultat.getString("nationaliteAuteur")
+										);
+				
+				MaisonEdition maisonEdition = new MaisonEdition(
+										resultat.getInt("maisonEditionId"), 
+										resultat.getString("nomMaison")
+				);
+				Domain domain = new Domain( 
+										resultat.getInt("DomaineId"), 
+										resultat.getString("nomDomaine")
+				);
+				TypeDocument typeDocument = new TypeDocument(
+										resultat.getInt("typeId"), 
+										resultat.getString("designationType")
+				);				
+				
+				String cover = resultat.getString("cover");
+				
+				document.add(new DocumentResponse(ISBN, libelle, description, domain, maisonEdition, auteur, typeDocument, cover));
+
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return document;
+	}
+
+	
 
 	public void insertDocument(Document document) {
 
@@ -170,15 +237,14 @@ public class DocumentRepo {
 		boolean rowUpdated;
 		try {
 			PreparedStatement statement = connexion.prepareStatement(UPDATE_DOCUMENT_SQL);
-			statement.setString(9, document.getISBN());
+			statement.setString(8, document.getISBN());
 			statement.setString(1, document.getLibelle());
 			statement.setString(2, document.getDescription());
 			statement.setInt(3, document.getAuteur());
 			statement.setInt(4, document.getDomaine());
 			statement.setInt(5, document.getMaisonEdition());
 			statement.setInt(6, document.getType());
-			statement.setString(7, document.getISBN());
-			statement.setString(8, document.getCover());
+			statement.setString(7, document.getCover());
 			
 			rowUpdated = statement.executeUpdate() > 0;
 		} finally {
@@ -206,7 +272,7 @@ public class DocumentRepo {
 	private void loadDatabase() {
 		// Chargement du driver
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 		}
 

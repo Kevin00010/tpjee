@@ -36,6 +36,11 @@ public class TypeDocument {
 		this.designation = designation;
 	}
 
+	@Override
+	public String toString() {
+		return "TypeDocument [id=" + id + ", designation=" + designation + "]";
+	}
+
 	
 
 }

@@ -35,4 +35,9 @@ public class MaisonEdition {
 		this.nomMaison = nomMaison;
 	}
 
+	@Override
+	public String toString() {
+		return "MaisonEdition [id=" + id + ", nomMaison=" + nomMaison + "]";
+	}
+
 }

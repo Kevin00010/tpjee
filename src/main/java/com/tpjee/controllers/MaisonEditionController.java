@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tpjee.bdd.MaisonEditionRepo;
 import com.tpjee.models.MaisonEdition;
@@ -36,6 +37,12 @@ public class MaisonEditionController extends HttpServlet {
 
    	System.out.println(action);
    		try {
+   			
+HttpSession session = request.getSession();
+   		    
+   		    
+   		    if(session.getAttribute("currentSessionUser") != null) {
+   			
    		 switch (action) {
          
          case "/insert_maisonEdition":
@@ -54,6 +61,9 @@ public class MaisonEditionController extends HttpServlet {
              listMaisonEditions(request, response);
              break;
    		 }
+   		    }else {
+   		    	response.sendRedirect("login_form");
+   		    }
    		} catch (SQLException ex) {
    			throw new ServletException(ex);
    		}

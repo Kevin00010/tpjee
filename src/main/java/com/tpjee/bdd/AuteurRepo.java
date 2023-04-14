@@ -101,7 +101,7 @@ public class AuteurRepo {
 
 		return nationalites;
 	}
-	
+	//insert an author in the database
 	public void insertAuteur(Auteur auteur) {
 
 		loadDatabase();
@@ -118,6 +118,7 @@ public class AuteurRepo {
 		}
 	}
 
+	//find one author from database
 	public Auteur selectAuteur(int id) {
 		Auteur auteur = null;
 		loadDatabase();
@@ -127,7 +128,6 @@ public class AuteurRepo {
 			// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connexion.prepareStatement(SELECT_AUTEUR_BY_ID);
 			preparedStatement.setInt(1, id);
-			System.out.println(preparedStatement);
 			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -179,6 +179,7 @@ public class AuteurRepo {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
+			
 		}
 
 		try {

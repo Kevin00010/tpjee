@@ -59,7 +59,7 @@
 							</div>
 							<div class="modal-body">
 								<form class="settings-form" method="post"
-									action="insert_document">
+									action="update_document"  enctype="multipart/form-data">
 
 									<div class="col-12">
 										<div class="app-card app-card-settings shadow-sm p-4">
@@ -138,6 +138,19 @@
 													<input type="text" class="form-control" id="setting-input-2" value='<c:out value="${ document.getDescription() }" />' name="description">
 													<input type="hidden" class="form-control" id="setting-input-2" value='<c:out value="${ document.getISBN() }" />' name="description">	
 												</div>
+												<div class="mb-3">
+
+													<label for="cover" class="form-label">Cover</label> 
+													<input type="file" class="form-control" accept="image/jpeg, image/png" id="cover" name="cover" value='/Users/armandpountie/eclipse-workspace/tpjee/src/main/webapp/resources/assets/images/covers/<c:out value="${ document.getCover()}" />'
+													 >
+													<span><img
+													src='http://localhost:8080/tpjee/resources/assets/images/covers/<c:out
+													value="${ document.getCover() }" />'
+													style="width: 30%; height: 150px" class="card-img-top"
+													alt="..."></span>
+												</div>
+												
+												
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" id="btn-close"
 														data-bs-dismiss="modal">Close</button>

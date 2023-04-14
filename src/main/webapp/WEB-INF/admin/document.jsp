@@ -12,7 +12,7 @@
 	<!--//app-header-->
 
 	<div class="app-wrapper">
-
+		
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
 				<!-- add new -->
@@ -26,15 +26,10 @@
 								<div class="col-auto">
 									<button type="button" class="btn app-btn-secondary"
 										data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-										<svg width="1em" height="1em" viewBox="0 0 16 16"
-											class="bi bi-download me-1" fill="currentColor"
-											xmlns="http://www.w3.org/2000/svg">
-											<path fill-rule="evenodd"
-												d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-											<path fill-rule="evenodd"
-												d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> 
+											<path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+											<path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
 										</svg>
-
 										New document
 									</button>
 								</div>
@@ -111,12 +106,9 @@
 												<div class="mb-3">
 													<div class="row">
 														<div class="col-6">
-															<label for="setting-input-2" class="form-label">Publishing
-																house</label> <select class="form-select" name="maisonEdition"
-																required>
-
-																<option selected="" value="">--Select
-																	publishing house--</option>
+															<label for="setting-input-2" class="form-label"> Publishing house</label> 
+															<select class="form-select" name="maisonEdition"	required>
+																<option selected="" value="">--Select publishing house--</option>
 																<c:forEach var="maisonEdition"
 																	items="${ maisonEditions }">
 																	<option value='<c:out value="${ maisonEdition.id }" />'><c:out
@@ -128,8 +120,7 @@
 															<label for="setting-input-2" class="form-label">Type
 																of Document</label> <select class="form-select"
 																name="typeDocument" required>
-																<option selected="" value="">--Select
-																	document's type--</option>
+																<option selected="" value="">--Select document's type--</option>
 																<c:forEach var="typeDocument" items="${ typeDocuments }">
 																	<option value='<c:out value="${ typeDocument.id }" />'><c:out
 																			value="${ typeDocument.designation }" /></option>
@@ -189,73 +180,63 @@
 					<div class="col-auto">
 						<h1 class="app-page-title mb-0">Documents</h1>
 					</div>
-					<!-- 					<div class="col-auto"> -->
-					<!-- 						<div class="page-utilities"> -->
-					<!-- 							<div -->
-					<!-- 								class="row g-2 justify-content-start justify-content-md-end align-items-center"> -->
-					<!-- 								<div class="col-auto"> -->
-					<!-- 									<form class="docs-search-form row gx-1 align-items-center"> -->
-					<!-- 										<div class="col-auto"> -->
-					<!-- 											<input type="text" id="search-docs" name="searchdocs" -->
-					<!-- 												class="form-control search-docs" placeholder="Search"> -->
-					<!-- 										</div> -->
-					<!-- 										<div class="col-auto"> -->
-					<!-- 											<button type="submit" class="btn app-btn-secondary">Search</button> -->
-					<!-- 										</div> -->
-					<!-- 									</form> -->
+										<div class="col-auto">
+											<div class="page-utilities">
+												<div
+													class="row g-2 justify-content-start justify-content-md-end align-items-center">
+													<div class="col-auto">
+														<form class="docs-search-form row gx-1 align-items-center">
+															<div class="col-auto">
+																<input type="text" id="search-docs" name="searchdocs"
+																	class="form-control search-docs" placeholder="Search">
+															</div>
+															<div class="col-auto">
+																<button type="submit" class="btn app-btn-secondary">Search</button>
+															</div>
+														</form>
 
-					<!-- 								</div> -->
-					<!-- 								//col -->
-					<!-- 								<div class="col-auto"> -->
+													</div>
+													
+													<div class="col-auto">
 
-					<!-- 									<select class="form-select w-auto"> -->
-					<!-- 										<option selected="" value="option-1">All</option> -->
-					<!-- 										<option value="Text">Text file</option> -->
-					<!-- 										<option value="Image">Image</option> -->
-					<!-- 										<option value="Spreadsheet">Spreadsheet</option> -->
-					<!-- 										<option value="presentation">Presentation</option> -->
-					<!-- 										<option value="zip">Zip file</option> -->
-					<!-- 										<option value="pdf">PDF</option> -->
-					<!-- 									</select> -->
-					<!-- 								</div> -->
-					<!-- 								<div class="col-auto"> -->
-					<!-- 									<a class="btn app-btn-primary" href="newbook.html"><svg -->
-					<!-- 											width="1em" height="1em" viewBox="0 0 16 16" -->
-					<!-- 											class="bi bi-upload me-2" fill="currentColor" -->
-					<!-- 											xmlns="http://www.w3.org/2000/svg"> -->
-					<!-- 											<path fill-rule="evenodd" -->
-					<!-- 												d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" /> -->
-					<!-- 											<path fill-rule="evenodd" -->
-					<!-- 												d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" /> -->
-					<!-- 										</svg>Nouveau Documents</a> -->
-					<!-- 								</div> -->
-					<!-- 							</div> -->
-					<!-- 							//row -->
-					<!-- 						</div> -->
-					<!-- 						//table-utilities -->
-					<!-- 					</div> -->
-					<!-- 					//col-auto -->
+														<select class="form-select w-auto">
+															<option selected="" value="option-1">All</option>
+															<option value="Text">Text file</option>
+															<option value="Image">Image</option>
+															<option value="Spreadsheet">Spreadsheet</option>
+															<option value="presentation">Presentation</option>
+															<option value="zip">Zip file</option>
+															<option value="pdf">PDF</option>
+														</select>
+													</div>
+													<div class="col-auto">
+														<a class="btn app-btn-primary" href="newbook.html"><svg
+																width="1em" height="1em" viewBox="0 0 16 16"
+																class="bi bi-upload me-2" fill="currentColor"
+																xmlns="http://www.w3.org/2000/svg">
+																<path fill-rule="evenodd"
+																	d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+																<path fill-rule="evenodd"
+																	d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+															</svg>Nouveau Documents</a>
+													</div>
+												</div>
+											</div>
+										</div>
 				</div>
 				<!--//row-->
-
 				<div class="row g-4" id="myDIV">
-
-
 					<c:forEach var="document" items="${ documents }">
-						<div class="col-6 col-md-4 col-xl-3 col-xxl-2">
-
+						<div class="col-6 col-md-4 col-xl-3 col-xxl-2 docs">
 							<div class="app-card app-card-doc shadow-sm h-100">
 								<img
 									src='http://localhost:8080/tpjee/resources/assets/images/covers/<c:out
 													value="${ document.getCover() }" />'
 									style="width: 100%; height: 150px" class="card-img-top"
 									alt="...">
-
-
-								<div class="app-card-body p-3 has-card-actions">
-
+								<div class="app-card-body p-3 has-card-actions">						
 									<h4 class="app-doc-title truncate mb-0">
-										<a href="#file-link"><c:out
+										<a href="#file-link" id="libelle"><c:out
 												value="${ document.getLibelle() }" /> </a>
 									</h4>
 									<div class="app-doc-meta">
@@ -270,7 +251,6 @@
 										</ul>
 									</div>
 									<!--//app-doc-meta-->
-
 									<div class="app-card-actions">
 										<div class="dropdown">
 											<div class="dropdown-toggle no-toggle-arrow"
@@ -329,32 +309,16 @@
 										<!--//dropdown-->
 									</div>
 									<!--//app-card-actions-->
-
 								</div>
 								<!--//app-card-body-->
-
 							</div>
 						</div>
 						<!--//app-card-->
 					</c:forEach>
-
 				</div>
 				<!--//col-->
-
 				<!--//col-->
 			</div>
-			<!--//row-->
-			<!-- 			<nav class="app-pagination mt-5"> -->
-			<!-- 				<ul class="pagination justify-content-center"> -->
-			<!-- 					<li class="page-item disabled"><a class="page-link" href="#" -->
-			<!-- 						tabindex="-1" aria-disabled="true">Previous</a></li> -->
-			<!-- 					<li class="page-item active"><a class="page-link" href="#">1</a></li> -->
-			<!-- 					<li class="page-item"><a class="page-link" href="#">2</a></li> -->
-			<!-- 					<li class="page-item"><a class="page-link" href="#">3</a></li> -->
-			<!-- 					<li class="page-item"><a class="page-link" href="#">Next</a></li> -->
-			<!-- 				</ul> -->
-			<!-- 			</nav> -->
-			<!--//app-pagination-->
 		</div>
 		<!--//container-fluid-->
 	</div>
@@ -365,30 +329,15 @@
 
 	<!-- Javascript -->
 	<%@ include file="/WEB-INF/javascript.jsp"%>
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$("#search-docs")
-									.on(
-											"keyup",
-											function() {
-												var value = $(this).val()
-														.toLowerCase();
-												$("#myDIV *")
-														.filter(
-																function() {
-																	$(this)
-																			.toggle(
-																					$(
-																							this)
-																							.text()
-																							.toLowerCase()
-																							.indexOf(
-																									value) > -1)
-																});
-											});
-						});
+	<!--  search on key up -->
+	<script> $(document).ready(function() {
+		$("#search-docs").on("keyup",function() {
+			var value = $(this).val().toLowerCase();
+
+		$("#myDIV .docs ").filter(function() {$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
 	</script>
 </body>
 

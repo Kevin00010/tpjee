@@ -91,6 +91,13 @@ public class Document {
 	public void setCover(String cover) {
 		this.cover = cover;
 	}
+
+	@Override
+	public String toString() {
+		return "Document [ISBN=" + ISBN + ", libelle=" + libelle + ", description=" + description + ", domaine="
+				+ domaine + ", maisonEdition=" + maisonEdition + ", auteur=" + auteur + ", type=" + type + ", cover="
+				+ cover + "]";
+	}
 	
 	
 	

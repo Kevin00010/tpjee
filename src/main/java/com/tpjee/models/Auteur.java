@@ -54,6 +54,11 @@ public class Auteur {
 	public void setNationalite(String nationalite) {
 		this.nationalite = nationalite;
 	}
+
+	@Override
+	public String toString() {
+		return "Auteur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", nationalite=" + nationalite + "]";
+	}
 	
 	
 }
