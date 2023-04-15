@@ -9,6 +9,10 @@
 		<servlet-name>HomeController</servlet-name>
 		<servlet-class>com.tpjee.controllers.HomeController</servlet-class>
 	</servlet>
+<servlet>
+		<servlet-name>AdminController</servlet-name>
+		<servlet-class>com.tpjee.controllers.AdminController</servlet-class>
+	</servlet>
 
 	<servlet>
 		<servlet-name>AuthController</servlet-name>
@@ -41,6 +45,14 @@
 		<url-pattern>/login_form</url-pattern>
 		<url-pattern>/register_form</url-pattern>
 		<url-pattern>/documents_domain</url-pattern>
+		<url-pattern>/detail_document</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AdminController</servlet-name>
+		<url-pattern>/admin_index</url-pattern>
+		<url-pattern>/deconnexion</url-pattern>
+		
 	</servlet-mapping>
 
 
@@ -106,8 +118,7 @@
 
 		<url-pattern>/login</url-pattern>
 		<url-pattern>/register</url-pattern>
-		<url-pattern>/admin_index</url-pattern>
-		<url-pattern>/deconnexion</url-pattern>
+		
 	</servlet-mapping>
 
 	<jsp-config>

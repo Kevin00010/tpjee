@@ -229,11 +229,11 @@
 					<c:forEach var="document" items="${ documents }">
 						<div class="col-6 col-md-4 col-xl-3 col-xxl-2 docs">
 							<div class="app-card app-card-doc shadow-sm h-100">
-								<img
+								<a href="<c:url value='detail_document?id=${document.getISBN()}'/>"><img
 									src='http://localhost:8080/tpjee/resources/assets/images/covers/<c:out
 													value="${ document.getCover() }" />'
 									style="width: 100%; height: 150px" class="card-img-top"
-									alt="...">
+									alt="..."></a>
 								<div class="app-card-body p-3 has-card-actions">						
 									<h4 class="app-doc-title truncate mb-0">
 										<a href="#file-link" id="libelle"><c:out
@@ -264,7 +264,7 @@
 											</div>
 											<!--//dropdown-toggle-->
 											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="#"><svg
+												<li><a class="dropdown-item" href="<c:url value='detail_document?id=${document.getISBN()}'/>"><svg
 															width="1em" height="1em" viewBox="0 0 16 16"
 															class="bi bi-eye me-2" fill="currentColor"
 															xmlns="http://www.w3.org/2000/svg">

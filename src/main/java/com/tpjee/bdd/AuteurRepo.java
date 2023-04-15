@@ -22,7 +22,7 @@ public class AuteurRepo {
 			+ " (?, ?, ?);";
 
 	private static final String SELECT_AUTEUR_BY_ID = "select id,nom,prenom,nationalite from auteurs where id =?";
-	private static final String SELECT_ALL_AUTEURS = "select * from auteurs";
+	private static final String SELECT_ALL_AUTEURS = "select * from auteurs ORDER BY auteurs.id";
 	private static final String SELECT_ALL_NATIONALITIES = "select designation from nationalities";
 	private static final String DELETE_AUTEUR_SQL = "delete from auteurs where id = ?;";
 	private static final String UPDATE_AUTEUR_SQL = "update auteurs set nom = ?,prenom= ?, nationalite =? where id = ?;";

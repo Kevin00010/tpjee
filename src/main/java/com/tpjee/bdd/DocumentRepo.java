@@ -45,7 +45,49 @@ public class DocumentRepo {
 			+ "AND documents.domaine=domaines.id"
 			+ " AND documents.maisonEdition=maison_editions.id "
 			+ "AND documents.type=type_documents.id "
-			+ "AND documents.domaine = ?;";
+			+ "AND documents.domaine = ? order by domaines.designation ASC;";
+	
+	private static final String DOCUMENTS_BY_AUTEUR = "SELECT documents.ISBN, documents.libelle, "
+			+ "documents.description, documents.cover, "
+			+ "auteurs.id as auteurId, auteurs.nationalite as nationaliteAuteur, "
+			+ "auteurs.nom as nomAuteur, auteurs.prenom as prenomAuteur, "
+			+ "maison_editions.id as maisonEditionId, maison_editions.nomMaison as nomMaison,"
+			+ " type_documents.id as typeId, type_documents.designation as designationType,"
+			+ " domaines.id as domaineId, domaines.designation as nomDomaine FROM documents,"
+			+ " auteurs, domaines, type_documents, maison_editions"
+			+ " where documents.auteur = auteurs.id "
+			+ "AND documents.domaine=domaines.id"
+			+ " AND documents.maisonEdition=maison_editions.id "
+			+ "AND documents.type=type_documents.id "
+			+ "AND documents.auteur = ? order by auteurs.id ASC;";
+	
+	private static final String DOCUMENTS_BY_MAISON = "SELECT documents.ISBN, documents.libelle, "
+			+ "documents.description, documents.cover, "
+			+ "auteurs.id as auteurId, auteurs.nationalite as nationaliteAuteur, "
+			+ "auteurs.nom as nomAuteur, auteurs.prenom as prenomAuteur, "
+			+ "maison_editions.id as maisonEditionId, maison_editions.nomMaison as nomMaison,"
+			+ " type_documents.id as typeId, type_documents.designation as designationType,"
+			+ " domaines.id as domaineId, domaines.designation as nomDomaine FROM documents,"
+			+ " auteurs, domaines, type_documents, maison_editions"
+			+ " where documents.auteur = auteurs.id "
+			+ "AND documents.domaine=domaines.id"
+			+ " AND documents.maisonEdition=maison_editions.id "
+			+ "AND documents.type=type_documents.id "
+			+ "AND documents.maisonEdition = ? order by maison_editions.nomMaison ASC;";
+	
+	private static final String DOCUMENTS_BY_TYPE = "SELECT documents.ISBN, documents.libelle, "
+			+ "documents.description, documents.cover, "
+			+ "auteurs.id as auteurId, auteurs.nationalite as nationaliteAuteur, "
+			+ "auteurs.nom as nomAuteur, auteurs.prenom as prenomAuteur, "
+			+ "maison_editions.id as maisonEditionId, maison_editions.nomMaison as nomMaison,"
+			+ " type_documents.id as typeId, type_documents.designation as designationType,"
+			+ " domaines.id as domaineId, domaines.designation as nomDomaine FROM documents,"
+			+ " auteurs, domaines, type_documents, maison_editions"
+			+ " where documents.auteur = auteurs.id "
+			+ "AND documents.domaine=domaines.id"
+			+ " AND documents.maisonEdition=maison_editions.id "
+			+ "AND documents.type=type_documents.id "
+			+ "AND documents.type = ? order by type_documents.designation ASC;";
 	
 	public List<DocumentResponse> listDocuments() {
 		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
@@ -158,6 +200,157 @@ public class DocumentRepo {
 		}
 		return document;
 	}
+	
+	public List<DocumentResponse> DocumentsByAuteur(int id) {
+		List<DocumentResponse> document = new ArrayList<DocumentResponse>();
+		loadDatabase();
+
+		// Step 1: Establishing a Connection
+		try {
+			// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connexion.prepareStatement(DOCUMENTS_BY_AUTEUR);
+			preparedStatement.setInt(1, id);
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet resultat = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (resultat.next()) {
+				String ISBN = resultat.getString("ISBN");
+				String libelle = resultat.getString("libelle");
+				String description = resultat.getString("description");
+				
+				Auteur auteur = new Auteur(resultat.getInt("auteurId"), 
+										resultat.getString("nomAuteur"), 
+										resultat.getString("prenomAuteur"),
+										resultat.getString("nationaliteAuteur")
+										);
+				
+				MaisonEdition maisonEdition = new MaisonEdition(
+										resultat.getInt("maisonEditionId"), 
+										resultat.getString("nomMaison")
+				);
+				Domain domain = new Domain( 
+										resultat.getInt("DomaineId"), 
+										resultat.getString("nomDomaine")
+				);
+				TypeDocument typeDocument = new TypeDocument(
+										resultat.getInt("typeId"), 
+										resultat.getString("designationType")
+				);				
+				
+				String cover = resultat.getString("cover");
+				
+				document.add(new DocumentResponse(ISBN, libelle, description, domain, maisonEdition, auteur, typeDocument, cover));
+
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return document;
+	}
+
+	public List<DocumentResponse> DocumentsByMaisonEdition(int id) {
+		List<DocumentResponse> document = new ArrayList<DocumentResponse>();
+		loadDatabase();
+
+		// Step 1: Establishing a Connection
+		try {
+			// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connexion.prepareStatement(DOCUMENTS_BY_MAISON);
+			preparedStatement.setInt(1, id);
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet resultat = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (resultat.next()) {
+				String ISBN = resultat.getString("ISBN");
+				String libelle = resultat.getString("libelle");
+				String description = resultat.getString("description");
+				
+				Auteur auteur = new Auteur(resultat.getInt("auteurId"), 
+										resultat.getString("nomAuteur"), 
+										resultat.getString("prenomAuteur"),
+										resultat.getString("nationaliteAuteur")
+										);
+				
+				MaisonEdition maisonEdition = new MaisonEdition(
+										resultat.getInt("maisonEditionId"), 
+										resultat.getString("nomMaison")
+				);
+				Domain domain = new Domain( 
+										resultat.getInt("DomaineId"), 
+										resultat.getString("nomDomaine")
+				);
+				TypeDocument typeDocument = new TypeDocument(
+										resultat.getInt("typeId"), 
+										resultat.getString("designationType")
+				);				
+				
+				String cover = resultat.getString("cover");
+				
+				document.add(new DocumentResponse(ISBN, libelle, description, domain, maisonEdition, auteur, typeDocument, cover));
+
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return document;
+	}
+	
+	public List<DocumentResponse> DocumentsByType(int id) {
+		List<DocumentResponse> document = new ArrayList<DocumentResponse>();
+		loadDatabase();
+
+		// Step 1: Establishing a Connection
+		try {
+			// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connexion.prepareStatement(DOCUMENTS_BY_TYPE);
+			preparedStatement.setInt(1, id);
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet resultat = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (resultat.next()) {
+				String ISBN = resultat.getString("ISBN");
+				String libelle = resultat.getString("libelle");
+				String description = resultat.getString("description");
+				
+				Auteur auteur = new Auteur(resultat.getInt("auteurId"), 
+										resultat.getString("nomAuteur"), 
+										resultat.getString("prenomAuteur"),
+										resultat.getString("nationaliteAuteur")
+										);
+				
+				MaisonEdition maisonEdition = new MaisonEdition(
+										resultat.getInt("maisonEditionId"), 
+										resultat.getString("nomMaison")
+				);
+				Domain domain = new Domain( 
+										resultat.getInt("DomaineId"), 
+										resultat.getString("nomDomaine")
+				);
+				TypeDocument typeDocument = new TypeDocument(
+										resultat.getInt("typeId"), 
+										resultat.getString("designationType")
+				);				
+				
+				String cover = resultat.getString("cover");
+				
+				document.add(new DocumentResponse(ISBN, libelle, description, domain, maisonEdition, auteur, typeDocument, cover));
+
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return document;
+	}
+
 
 	
 
@@ -175,7 +368,7 @@ public class DocumentRepo {
 			preparedStatement.setInt(6, document.getMaisonEdition());
 			preparedStatement.setInt(7, document.getType());
 			preparedStatement.setString(8, document.getCover());
-
+			
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			printSQLException(e);

@@ -185,7 +185,7 @@
 
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->
-
+</div>
 		<%@ include file="/WEB-INF/javascript.jsp"%>
 
 </body>

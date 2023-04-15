@@ -52,9 +52,7 @@ public class AuthController extends HttpServlet {
 			case "/register":
 				register(request, response);
 				break;
-			case "/admin_index":
-				adminHome(request, response);
-				break;
+			
 			case "/deconnexion":
 				logOut(request, response);
 				break;

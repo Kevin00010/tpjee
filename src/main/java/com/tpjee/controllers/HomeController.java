@@ -13,10 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tpjee.bdd.AuteurRepo;
 import com.tpjee.bdd.DocumentRepo;
 import com.tpjee.bdd.DomainRepo;
+import com.tpjee.bdd.MaisonEditionRepo;
+import com.tpjee.bdd.TypeDocumentRepo;
+import com.tpjee.models.Auteur;
 import com.tpjee.models.DocumentResponse;
 import com.tpjee.models.Domain;
+import com.tpjee.models.MaisonEdition;
+import com.tpjee.models.TypeDocument;
 
 /**
  * Servlet implementation class HomeController
@@ -35,7 +41,10 @@ public class HomeController extends HttpServlet {
 
 	DocumentRepo documentRepo = new DocumentRepo();
 	DomainRepo domainRepo = new DomainRepo();
-
+	AuteurRepo auteurRepo = new AuteurRepo();
+	TypeDocumentRepo typeDocumentRepo = new TypeDocumentRepo();
+	MaisonEditionRepo maisonEditionRepo = new MaisonEditionRepo();
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -80,9 +89,23 @@ public class HomeController extends HttpServlet {
 
 	public void listDomaines(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		
+
 		List<Domain> domains = new ArrayList<Domain>();
 		domains = domainRepo.listDomains();
 		request.setAttribute("domains", domains);
+		
+		List<MaisonEdition> maisonEditions = new ArrayList<MaisonEdition>();
+		maisonEditions = maisonEditionRepo.listMaisonEditions();
+		request.setAttribute("maisonEditions", maisonEditions);
+		
+		List<TypeDocument> typeDocuments = new ArrayList<TypeDocument>();
+		typeDocuments = typeDocumentRepo.listTypeDocuments();
+		request.setAttribute("typeDocuments", typeDocuments);
+
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+		auteurs = auteurRepo.listAuteurs();
+		request.setAttribute("auteurs", auteurs);
 
 		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
 
@@ -98,15 +121,128 @@ public class HomeController extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
+	
+	public void documentsByMaison(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<Domain> domains = new ArrayList<Domain>();
+		domains = domainRepo.listDomains();
+		request.setAttribute("domains", domains);
+		
+		List<MaisonEdition> maisonEditions = new ArrayList<MaisonEdition>();
+		maisonEditions = maisonEditionRepo.listMaisonEditions();
+		request.setAttribute("maisonEditions", maisonEditions);
+		
+		List<TypeDocument> typeDocuments = new ArrayList<TypeDocument>();
+		typeDocuments = typeDocumentRepo.listTypeDocuments();
+		request.setAttribute("typeDocuments", typeDocuments);
+
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+		auteurs = auteurRepo.listAuteurs();
+		request.setAttribute("auteurs", auteurs);
+		
+		
+		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
+
+		HashMap<MaisonEdition, List<DocumentResponse>> documentsByMaison = new HashMap<MaisonEdition, List<DocumentResponse>>();
+		for (MaisonEdition maisonEdition : maisonEditions) {
+			documents = documentRepo.DocumentsByMaisonEdition(maisonEdition.getId());
+			documentsByMaison.put(maisonEdition, documents);
+		}
+
+		request.setAttribute("documentsByDomain", documentsByMaison);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
+	
+	public void documentsByAuteur(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<Domain> domains = new ArrayList<Domain>();
+		domains = domainRepo.listDomains();
+		request.setAttribute("domains", domains);
+		
+		List<MaisonEdition> maisonEditions = new ArrayList<MaisonEdition>();
+		maisonEditions = maisonEditionRepo.listMaisonEditions();
+		request.setAttribute("maisonEditions", maisonEditions);
+		
+		List<TypeDocument> typeDocuments = new ArrayList<TypeDocument>();
+		typeDocuments = typeDocumentRepo.listTypeDocuments();
+		request.setAttribute("typeDocuments", typeDocuments);
+
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+		auteurs = auteurRepo.listAuteurs();
+		request.setAttribute("auteurs", auteurs);
+		
+		
+		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
+
+		HashMap<Auteur, List<DocumentResponse>> documentsByAuteur = new HashMap<Auteur, List<DocumentResponse>>();
+		for (Auteur auteur : auteurs) {
+			documents = documentRepo.DocumentsByAuteur(auteur.getId());
+			documentsByAuteur.put(auteur, documents);
+		}
+
+		request.setAttribute("documentsByAuteur", documentsByAuteur);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
+	public void documentsByType(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<Domain> domains = new ArrayList<Domain>();
+		domains = domainRepo.listDomains();
+		request.setAttribute("domains", domains);
+		
+		List<MaisonEdition> maisonEditions = new ArrayList<MaisonEdition>();
+		maisonEditions = maisonEditionRepo.listMaisonEditions();
+		request.setAttribute("maisonEditions", maisonEditions);
+		
+		List<TypeDocument> typeDocuments = new ArrayList<TypeDocument>();
+		typeDocuments = typeDocumentRepo.listTypeDocuments();
+		request.setAttribute("typeDocuments", typeDocuments);
+
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+		auteurs = auteurRepo.listAuteurs();
+		request.setAttribute("auteurs", auteurs);
+		
+		
+		List<DocumentResponse> documents = new ArrayList<DocumentResponse>();
+
+		HashMap<TypeDocument, List<DocumentResponse>> documentsByTypeDocument = new HashMap<TypeDocument, List<DocumentResponse>>();
+		for (TypeDocument typeDocument : typeDocuments) {
+			documents = documentRepo.DocumentsByType(typeDocument.getId());
+			documentsByTypeDocument.put(typeDocument, documents);
+		}
+
+		request.setAttribute("documentsByType", documentsByTypeDocument);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
+	
 
 	public void detailDocument(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		
 		DocumentResponse documents = new DocumentResponse();
 		String id = (String) request.getParameter("id");
 		documents = documentRepo.selectDocument(id);
-		request.setAttribute("documents", documents);
+		
+		List<Domain> domains = new ArrayList<Domain>();
+		domains = domainRepo.listDomains();
+		request.setAttribute("domains", domains);
+		
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/doc_detail.jsp");
+		request.setAttribute("document", documents);
+
 		dispatcher.forward(request, response);
 	}
 
